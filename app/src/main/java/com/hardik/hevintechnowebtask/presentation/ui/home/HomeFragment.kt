@@ -4,6 +4,9 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
@@ -16,7 +19,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hardik.hevintechnowebtask.MainActivity
+import com.hardik.hevintechnowebtask.R
 import com.hardik.hevintechnowebtask.adapter.UserAdapter
+import com.hardik.hevintechnowebtask.data.database.dao.SortField
+import com.hardik.hevintechnowebtask.data.database.dao.SortOrder
 import com.hardik.hevintechnowebtask.databinding.FragmentHomeBinding
 import com.hardik.hevintechnowebtask.presentation.MainViewModel
 
@@ -44,6 +50,7 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_home, container, false)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true) // Enable the options menu
         return binding.root
     }
 
@@ -158,6 +165,37 @@ class HomeFragment : Fragment() {
                 isScrolling = false
             }
 
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_sort_default -> {
+                viewModel.getSortedUsers(sortField = SortField.ID)
+                true
+            }
+            R.id.action_sort_name -> {
+                viewModel.getSortedUsers(sortField = SortField.FIRST_NAME)
+                true
+            }
+            R.id.action_sort_name_desc -> {
+                viewModel.getSortedUsers(sortField = SortField.FIRST_NAME, sortOrder = SortOrder.DESC)
+                true
+            }
+            R.id.action_sort_email -> {
+                viewModel.getSortedUsers(sortField = SortField.EMAIL)
+                true
+            }
+            R.id.action_sort_email_desc -> {
+                viewModel.getSortedUsers(sortField = SortField.EMAIL, sortOrder = SortOrder.DESC)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

@@ -3,6 +3,7 @@ package com.hardik.hevintechnowebtask.domain.use_case
 import android.util.Log
 import androidx.lifecycle.asFlow
 import com.hardik.hevintechnowebtask.common.Resource
+import com.hardik.hevintechnowebtask.data.database.dao.SortOrder
 import com.hardik.hevintechnowebtask.data.remote.dto.toUserModel
 import com.hardik.hevintechnowebtask.di.AppModule
 import com.hardik.hevintechnowebtask.domain.model.UserModel
@@ -38,4 +39,18 @@ class GetUserUseCase(private val appModule: AppModule) {
             emit(Resource.Error<List<UserModel>>("Couldn't reach server. Check your internet connection."))
         }
     }
+
+    fun getAllUsersSortedByName(sortOrder: SortOrder) =
+        when(sortOrder){
+            SortOrder.ASC->{appModule.userDao.getAllUsersSortedByFirstNameAsc()}
+            SortOrder.DESC->{appModule.userDao.getAllUsersSortedByFirstNameDesc()}
+        }
+
+    fun getAllUsersSortedByEmail(sortOrder: SortOrder) =
+        when(sortOrder){
+            SortOrder.ASC->{appModule.userDao.getAllUsersSortedByEmailAsc()}
+            SortOrder.DESC->{appModule.userDao.getAllUsersSortedByEmailDesc()}
+        }
+
+    fun getAllUsers() = appModule.userDao.getAllUsers()
 }

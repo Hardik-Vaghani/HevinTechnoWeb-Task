@@ -70,3 +70,16 @@ interface UserDao {
     @Query("DELETE FROM users")
     suspend fun deleteAllUsers()
 }
+
+
+enum class SortField(val value: String) {
+    FIRST_NAME("firstName"),
+    LAST_NAME("lastName"),
+    EMAIL("email"),
+    ID("id")
+}
+
+enum class SortOrder(val value: String) {
+    ASC("ASC"),
+    DESC("DESC")
+}

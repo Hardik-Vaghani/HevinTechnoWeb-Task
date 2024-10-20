@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Hevin Technoweb Task</string>
+    <string name="icon_up_arrow">&#x25B2;</string> <!-- Up arrow -->
+    <string name="icon_down_arrow">&#x25BC;</string> <!-- Down arrow -->
 </resources>

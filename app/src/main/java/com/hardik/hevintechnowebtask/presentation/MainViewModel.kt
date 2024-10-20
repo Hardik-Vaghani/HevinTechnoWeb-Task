@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hardik.hevintechnowebtask.common.Resource
+import com.hardik.hevintechnowebtask.data.database.dao.SortField
+import com.hardik.hevintechnowebtask.data.database.dao.SortOrder
 import com.hardik.hevintechnowebtask.domain.model.UserModel
 import com.hardik.hevintechnowebtask.domain.use_case.GetUserUseCase
 import kotlinx.coroutines.flow.launchIn
@@ -27,13 +29,39 @@ class MainViewModel(private val getUserUseCase: GetUserUseCase) : ViewModel() {
 
                     _state.value = UserListState(users = result.data ?: emptyList())
 
-                    skipPage += 10
+                    skipPage = (_state.value!!.users.size + 10)
                 }
                 is Resource.Error -> { _state.value = UserListState(error = result.message ?: "An unexpected error occurred") }
                 is Resource.Loading -> { _state.value = UserListState(isLoading = true) }
             }
 
         }.launchIn(viewModelScope)
+    }
+
+    fun getSortedUsers(sortField: SortField, sortOrder: SortOrder= SortOrder.ASC){
+        when(sortField){
+            SortField.FIRST_NAME -> {
+                getUserUseCase.getAllUsersSortedByName(sortOrder = sortOrder).observeForever { users ->
+                    _state.value = UserListState(users = users)
+                }
+            }
+            SortField.LAST_NAME -> {
+                getUserUseCase.getAllUsersSortedByName(sortOrder =sortOrder).observeForever { users ->
+                    _state.value = UserListState(users = users)
+                }
+            }
+            SortField.EMAIL -> {
+                getUserUseCase.getAllUsersSortedByEmail(sortOrder = sortOrder).observeForever { users ->
+                    _state.value = UserListState(users = users)
+                }
+            }
+            SortField.ID -> {
+                getUserUseCase.getAllUsers().observeForever { users ->
+                    _state.value = UserListState(users = users)
+                }
+            }
+        }
+
     }
 
 

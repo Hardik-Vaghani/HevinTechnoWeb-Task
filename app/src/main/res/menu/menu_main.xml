@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_sort_default"
+        android:title="Sort by Default"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_sort_name"
+        android:title="Sort by Name &#x25B2;"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sort_name_desc"
+        android:title="Sort by Name &#x25BC;"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_sort_email"
+        android:title="Sort by Email &#x25B2;"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sort_email_desc"
+        android:title="Sort by Email &#x25BC;"
+        app:showAsAction="never" />
+
+</menu>
