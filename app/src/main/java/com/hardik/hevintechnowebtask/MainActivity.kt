@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        setSupportActionBar(binding.appBarMain.toolbar)
         // Enable the Up button
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
